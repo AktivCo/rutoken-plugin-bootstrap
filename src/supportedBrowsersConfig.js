@@ -184,6 +184,15 @@ const supportedBrowsers = {
                     },
                 ],
             },
+            SputnikBrowser: {
+                versions: [
+                    {
+                        browserSupportedVersions: '>3',
+                        pluginVersion: '4.5.0.0',
+                        extensionCheck: true,
+                    },
+                ],
+            },
         },
     },
 };

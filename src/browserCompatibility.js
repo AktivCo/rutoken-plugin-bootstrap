@@ -42,7 +42,7 @@ class BrowserCompatibility {
 
         if (!brs) throw new NoSupportBrowserError(this.browser.name, Object.keys(browsers));
 
-        this.brs = brs;
+        this.brs = Array.isArray(brs) ? brs : brs.versions;
 
         const detector = this.detectedBrowser;
         const browserName = this.browser.name;
