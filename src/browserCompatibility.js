@@ -32,7 +32,7 @@ class BrowserCompatibility {
     getBrs() {
         const os = supportedBrowsersConfig[this.platform.type];
 
-        if (!os) throw new NoSupportPlatformError();
+        if (!os || window.navigator.maxTouchPoints > 0) throw new NoSupportPlatformError();
 
         const browsers = os[this.os.name];
 
