@@ -32,7 +32,11 @@ class BrowserCompatibility {
     getBrs() {
         const os = supportedBrowsersConfig[this.platform.type];
 
-        if (!os || window.navigator.maxTouchPoints > 0) throw new NoSupportPlatformError();
+        if (!os) throw new NoSupportPlatformError();
+
+        if(window.navigator.maxTouchPoints > 0 && this.os.name === 'macOS') {  //detect ios safari with userAgent as desctop setting
+            throw new NoSupportPlatformError();
+        }
 
         const browsers = os[this.os.name];
 
