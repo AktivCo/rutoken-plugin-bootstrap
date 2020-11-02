@@ -34,7 +34,7 @@ class BrowserCompatibility {
 
         if (!os) throw new NoSupportPlatformError();
 
-        if(window.navigator.maxTouchPoints > 0 && this.os.name === 'macOS') {  //detect ios safari with userAgent as desctop setting
+        if (window.navigator.maxTouchPoints > 0 && this.os.name === 'macOS') {  //detect ios safari with userAgent as desctop setting
             throw new NoSupportPlatformError();
         }
 
@@ -51,21 +51,19 @@ class BrowserCompatibility {
         const detector = this.detectedBrowser;
         const browserName = this.browser.name;
 
-        const version = this.brs.reduce((previous, current) => {
-            if (previous.pluginVersion > current.pluginVersion) {
+        const lastVersion = this.brs.reduce((previous, current) => {
+            if (previous.pluginVersion >= current.pluginVersion) {
                 if (detector.satisfies({ [browserName]: previous.browserSupportedVersions })) {
                     return previous;
                 }
                 return current;
             }
             return current;
-        }).pluginVersion;
+        });
 
-        const index = this.brs.findIndex((b) => b.pluginVersion === version);
-
-        if (this.brs != null && index !== -1) {
-            this.browserConfigVersion = this.brs[index];
-            this.brs = this.brs.slice(index);
+        if (this.brs != null && lastVersion != null) {
+            this.browserConfigVersion = lastVersion;
+            this.brs = [lastVersion];
         } else {
             throw new NoSupportPluginVersionError(this.os.name);
         }
@@ -91,6 +89,7 @@ class BrowserCompatibility {
                 const isValid = this.detectedBrowser.satisfies(brs);
 
                 if (isValid) return;
+                if (index != versions.length - 1) continue;
 
                 const os = supportedBrowsersConfig[this.platform.type];
 

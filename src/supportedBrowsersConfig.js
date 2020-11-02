@@ -34,10 +34,15 @@ const supportedBrowsers = {
             'Microsoft Edge': {
                 versions: [
                     {
-                        browserSupportedVersions: '>10',
+                        browserSupportedVersions: '>78',
                         pluginVersion: '4.3.0.0',
                         extensionCheck: true,
                     },
+                    {
+                        browserSupportedVersions: '>10',
+                        pluginVersion: '4.3.0.0',
+                        extensionCheck: false,
+                    }
                 ],
             },
             Firefox: {
