@@ -89,6 +89,7 @@ class BrowserCompatibility {
                 const isValid = this.detectedBrowser.satisfies(brs);
 
                 if (isValid) return;
+                if(!this.browser.version && x.allowUnknownBrowserVersion) return;
                 if (index != versions.length - 1) continue;
 
                 const os = supportedBrowsersConfig[this.platform.type];
