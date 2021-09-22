@@ -42,7 +42,7 @@ const supportedBrowsers = {
                         browserSupportedVersions: '>10',
                         pluginVersion: '4.3.0.0',
                         extensionCheck: false,
-                    }
+                    },
                 ],
             },
             Firefox: {
@@ -60,6 +60,20 @@ const supportedBrowsers = {
                 ],
             },
             Chrome: {
+                versions: [
+                    {
+                        browserSupportedVersions: '>50',
+                        pluginVersion: '4.3.0.0',
+                        extensionCheck: true,
+                    },
+                    {
+                        browserSupportedVersions: '>50',
+                        pluginVersion: '4.2.0.0',
+                        extensionCheck: true,
+                    },
+                ],
+            },
+            Chromium: {
                 versions: [
                     {
                         browserSupportedVersions: '>50',
@@ -137,6 +151,15 @@ const supportedBrowsers = {
                 ],
             },
             Chrome: {
+                versions: [
+                    {
+                        browserSupportedVersions: '>50',
+                        pluginVersion: '4.3.0.0',
+                        extensionCheck: true,
+                    },
+                ],
+            },
+            Chromium: {
                 versions: [
                     {
                         browserSupportedVersions: '>50',

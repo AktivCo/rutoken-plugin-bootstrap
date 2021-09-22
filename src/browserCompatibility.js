@@ -21,6 +21,12 @@ class BrowserCompatibility {
                 version: window.navigator.userAgent.split('SputnikBrowser/')[1].split(' ')[0],
             };
         }
+        if (window.navigator.userAgent.includes('Chromium GOST')) {
+            detectedBrowser.parsedResult.browser = {
+                name: 'Chromium',
+                version: window.navigator.userAgent.split('Chromium GOST')[0].split('Chrome/')[1].split(' ')[0],
+            };
+        }
 
         this.detectedBrowser = detectedBrowser;
 

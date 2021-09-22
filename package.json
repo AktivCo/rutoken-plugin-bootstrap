@@ -1,6 +1,6 @@
 {
     "name": "@aktivco-it/rutoken-plugin-bootstrap",
-    "version": "1.8.7",
+    "version": "1.8.8",
     "description": "Bootstraps Rutoken Plugin into the web-page",
     "main": "index.js",
     "scripts": {
