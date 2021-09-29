@@ -7,7 +7,7 @@ import bindAlgorithms from './bindAlgorithms';
 import { NoInstalledPluginError } from './supportError';
 
 class Plugin {
-    init() {
+    init(locale = null) {
         const browserCompatibility = new BrowserCompatibility();
 
         return rutoken.ready
@@ -32,12 +32,17 @@ class Plugin {
 
                 bindMethods.bind(this)(pluginObject);
                 bindAlgorithms.bind(this)(pluginObject);
+                this.setLocale(locale);
 
                 return Promise.resolve(this);
             })
             .catch((err) => {
                 throw err;
             });
+    }
+
+    setLocale(locale) {
+        this.locale = locale;
     }
 }
 

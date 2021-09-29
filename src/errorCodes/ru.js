@@ -1,5 +1,6 @@
 /* eslint max-len: ["error", { "ignoreStrings": true }] */
 const getErrorCodes = (errorCodes) => ({
+    'DEFAULT_ERROR': 'Произошла ошибка',
     [errorCodes.UNKNOWN_ERROR]: 'Неизвестная ошибка',
     [errorCodes.BAD_PARAMS]: 'Неправильные параметры',
     [errorCodes.NOT_ENOUGH_MEMORY]: 'Недостаточно памяти',

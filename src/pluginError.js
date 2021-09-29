@@ -12,7 +12,7 @@ class PluginError {
             this.description = errorCodes[code];
             this.code = code;
         } else {
-            this.description = 'Произошла ошибка';
+            this.description = errorCodes.DEFAULT_ERROR;
             this.code = null;
         }
 
