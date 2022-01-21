@@ -1,4 +1,4 @@
-import rutoken from 'rutoken';
+import rutoken from '@aktivco/rutoken-plugin';
 import BrowserCompatibility from './browserCompatibility';
 import bindMethods from './bindMethods';
 import bindAlgorithms from './bindAlgorithms';

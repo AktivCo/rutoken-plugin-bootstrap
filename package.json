@@ -1,6 +1,6 @@
 {
     "name": "@aktivco-it/rutoken-plugin-bootstrap",
-    "version": "1.8.9",
+    "version": "1.9.1",
     "description": "Bootstraps Rutoken Plugin into the web-page",
     "main": "index.js",
     "scripts": {
@@ -14,7 +14,7 @@
     ],
     "dependencies": {
         "bowser": "^2.7.0",
-        "rutoken": "^1.0.8"
+        "@aktivco/rutoken-plugin": "^1.0.9"
     },
     "devDependencies": {
         "babel-core": "6.26.3",
