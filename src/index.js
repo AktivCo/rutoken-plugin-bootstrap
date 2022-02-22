@@ -44,6 +44,11 @@ class Plugin {
     setLocale(locale) {
         this.locale = locale;
     }
+    
+    getPlatformType() {
+        const browserCompatibility = new BrowserCompatibility();
+        return browserCompatibility.platform.type;
+    }
 }
 
 export default new Plugin();
