@@ -47,6 +47,14 @@ class Plugin {
     
     getPlatformType() {
         const browserCompatibility = new BrowserCompatibility();
+
+        // detect ios safari with userAgent as desctop setting
+        // https://stackoverflow.com/a/58064481/9811165
+        if (window.navigator.maxTouchPoints > 0 && browserCompatibility.os.name === 'macOS') {
+            //max mobile Ios width (iPhone 12 Pro) 1170px
+            return window.screen.width <= 1170 ? "mobile" : "tablet";
+        }
+
         return browserCompatibility.platform.type;
     }
 }
