@@ -24,7 +24,7 @@ class BrowserCompatibility {
         if (window.navigator.userAgent.includes('Chromium GOST')) {
             detectedBrowser.parsedResult.browser = {
                 name: 'Chromium',
-                version: window.navigator.userAgent.split('Chromium GOST')[0].split('Chrome/')[1].split(' ')[0],
+                version: window.navigator.userAgent.split('Chrome/')[1].split(' ')[0],
             };
         }
 
