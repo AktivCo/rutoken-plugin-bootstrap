@@ -30,6 +30,7 @@ class BrowserCompatibility {
 
         this.detectedBrowser = detectedBrowser;
 
+        this.defaultOS = "Default";
         this.browser = detectedBrowser.getBrowser();
         this.os = detectedBrowser.getOS();
         this.platform = detectedBrowser.getPlatform();
@@ -44,11 +45,11 @@ class BrowserCompatibility {
             throw new NoSupportPlatformError();
         }
 
-        const browsers = os[this.os.name];
+        const browsers = !os[this.os.name] ? os[this.defaultOS] : os[this.os.name];
 
         if (!browsers) throw new NoSupportOsError(Object.keys(os));
 
-        const brs = browsers[this.browser.name];
+        const brs = !browsers[this.browser.name] ? os[this.defaultOS][this.browser.name] : browsers[this.browser.name];
 
         if (!brs) throw new NoSupportBrowserError(this.browser.name, Object.keys(browsers));
 

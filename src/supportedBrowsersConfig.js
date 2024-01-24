@@ -1,6 +1,9 @@
 const supportedBrowsers = {
     desktop:
-    {
+    {        
+        Default:
+        {
+        },
         Windows:
         {
             'Internet Explorer': {
@@ -230,7 +233,16 @@ const supportedBrowsers = {
                         allowUnknownBrowserVersion: true
                     },
                 ],
-            }
+            },  
+            'Yandex Browser': {
+                versions: [
+                    {
+                        browserSupportedVersions: '>1',
+                        pluginVersion: '4.5.1.0',
+                        extensionCheck: true,
+                    },
+                ],
+            },
         },
     },
 };
