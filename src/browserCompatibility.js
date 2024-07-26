@@ -84,13 +84,29 @@ class BrowserCompatibility {
         this.getBrs();
     }
 
+    isVersionValid(currentVersion, minVersion) {
+        const splitVersions = (val) => val.replace(/[^0-9.]/g, '').split('.').map(Number);
+
+        const current = splitVersions(currentVersion);
+        const minimum = splitVersions(minVersion);
+
+        for (let i = 0; i < Math.max(current.length, minimum.length); i++) {
+            const curr = current[i] || 0, min = minimum[i] || 0;
+            if (curr != min) {
+                return curr > min;
+            } 
+        }
+
+        return true;
+    }
+
     getSupportedBrowsersByPluginVersion(version) {
         const versions = this.brs;
 
         for (let index = 0; index < versions.length; index += 1) {
             const x = versions[index];
 
-            if (version >= x.pluginVersion) {
+            if (this.isVersionValid(version, x.pluginVersion)) {
                 const brs = { [this.browser.name]: x.browserSupportedVersions };
 
                 const isValid = this.detectedBrowser.satisfies(brs);
