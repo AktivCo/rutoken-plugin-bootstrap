@@ -95,6 +95,21 @@ function bindAlgorithms(plugin) {
         ],
     };
 
+    keyAlgorithms[plugin.PUBLIC_KEY_ALGORITHM_ECDSA] = {
+        name: 'PUBLIC_KEY_ALGORITHM_ECDSA',
+        text: 'ECDSA',
+        value: plugin.PUBLIC_KEY_ALGORITHM_ECDSA,
+        paramsets: [
+            { paramset: 'secp256k1', signatureSize: 512 },
+            { paramset: 'secp256r1', signatureSize: 512 },
+            { paramset: 'secp384r1', signatureSize: 768 },
+            { paramset: 'secp521r1', signatureSize: 1056 },
+        ],
+        hash: [
+            hashAlgorithms[plugin.HASH_TYPE_SHA256],
+        ],
+    };
+
     this.keyAlgorithms = keyAlgorithms;
 }
 
