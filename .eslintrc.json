@@ -1,9 +1,25 @@
 {
     "extends": "airbnb",
-    "parser": "babel-eslint",
+    "parser": "@babel/eslint-parser",
+      "parserOptions": {
+        "requireConfigFile": false,
+        "ecmaVersion": "latest",
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    },
     "env": {
         "browser": true,
         "webextensions": true
+    },
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "moduleDirectory": ["node_modules", "."],
+                "extensions": [".js", ".jsx", ".json"]
+            }
+        }
     },
     "rules": {
         "arrow-parens": [
@@ -45,7 +61,17 @@
         ],
         "max-len": [
             "warn",
-            120
-        ]
+            130
+        ],
+        "camelcase": "off",
+        "func-names": "off",
+        "no-use-before-define": "off",
+        "eqeqeq": "off",
+        "max-classes-per-file": "off",
+        "class-methods-use-this": "off",
+        "no-restricted-syntax": "off",
+        "import/no-unresolved": ["error", {
+            "ignore": ["^@aktivco/"]
+        }]
     }
 }
