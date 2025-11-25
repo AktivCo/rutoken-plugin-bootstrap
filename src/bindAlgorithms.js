@@ -1,4 +1,3 @@
-
 function bindAlgorithms(plugin) {
     const hashAlgorithms = {};
 
@@ -43,7 +42,6 @@ function bindAlgorithms(plugin) {
         text: 'SHA512',
         value: plugin.HASH_TYPE_SHA512,
     };
-
 
     const keyAlgorithms = {};
 

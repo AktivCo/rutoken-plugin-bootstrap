@@ -1,5 +1,5 @@
 function knownDeviceModels(plugin) {
-    var knownDevices = [];
+    const knownDevices = [];
 
     function RutokenModel() {
         this.mechanisms = undefined;
@@ -9,295 +9,265 @@ function knownDeviceModels(plugin) {
         this.type = undefined;
     }
 
-    RutokenModel.prototype.has = function(mechanisms, features, speed) {
+    RutokenModel.prototype.has = function (mechanisms, features, speed) {
         function findSecondArrayInFirst(firts, second) {
-            for (var key in second) {
+            for (const key in second) {
                 if (firts.indexOf(second[key]) == -1) return false;
             }
             return true;
         }
-
-        for (var mechType in this.mechanisms) {
-            for (var implType in this.mechanisms[mechType]) {
-                if (!findSecondArrayInFirst(mechanisms[mechType][implType], this.mechanisms[mechType][implType]))
+        // eslint-disable-next-line
+        for (const mechType in this.mechanisms) {
+            for (const implType in this.mechanisms[mechType]) {
+                if (!findSecondArrayInFirst(mechanisms[mechType][implType], this.mechanisms[mechType][implType])) {
                     return false;
+                }
             }
         }
+        // eslint-disable-next-line
+        for (const featureName in this.features) {
+            // eslint-disable-next-line
+            if (!this.features.hasOwnProperty(featureName)) { return false; }
 
-        for (var featureName in this.features) {
-            if(!this.features.hasOwnProperty(featureName))
-                return false;
-
-            if (features[featureName] != this.features[featureName])
-                return false;
+            if (features[featureName] != this.features[featureName]) { return false; }
         }
 
         if (this.speed != undefined && this.speed != speed) {
             return false;
         }
         return true;
-    }
+    };
 
-    var mechsSignGost2012 = [plugin.PUBLIC_KEY_ALGORITHM_GOST3410_2012_256, plugin.PUBLIC_KEY_ALGORITHM_GOST3410_2012_512];
-    var mechsSignGost2001 = [plugin.PUBLIC_KEY_ALGORITHM_GOST3410_2001];
-    var mechsSignRsa = [plugin.PUBLIC_KEY_ALGORITHM_RSA_512, plugin.PUBLIC_KEY_ALGORITHM_RSA_768, plugin.PUBLIC_KEY_ALGORITHM_RSA_1024,
-        plugin.PUBLIC_KEY_ALGORITHM_RSA_1280, plugin.PUBLIC_KEY_ALGORITHM_RSA_1536, plugin.PUBLIC_KEY_ALGORITHM_RSA_1792, plugin.PUBLIC_KEY_ALGORITHM_RSA_2048];
-    var mechsSignRsa4096 = [plugin.PUBLIC_KEY_ALGORITHM_RSA_4096];
+    const mechsSignGost2012 = [plugin.PUBLIC_KEY_ALGORITHM_GOST3410_2012_256, plugin.PUBLIC_KEY_ALGORITHM_GOST3410_2012_512];
+    const mechsSignGost2001 = [plugin.PUBLIC_KEY_ALGORITHM_GOST3410_2001];
+    const mechsSignRsa = [plugin.PUBLIC_KEY_ALGORITHM_RSA_512,
+        plugin.PUBLIC_KEY_ALGORITHM_RSA_768, plugin.PUBLIC_KEY_ALGORITHM_RSA_1024,
+        plugin.PUBLIC_KEY_ALGORITHM_RSA_1280, plugin.PUBLIC_KEY_ALGORITHM_RSA_1536,
+        plugin.PUBLIC_KEY_ALGORITHM_RSA_1792, plugin.PUBLIC_KEY_ALGORITHM_RSA_2048];
+    const mechsSignRsa4096 = [plugin.PUBLIC_KEY_ALGORITHM_RSA_4096];
 
-    var mechsHash94 = [plugin.HASH_TYPE_GOST3411_94];
-    var mechsHash2012 = [plugin.HASH_TYPE_GOST3411_12_256, plugin.HASH_TYPE_GOST3411_12_512];
+    const mechsHash94 = [plugin.HASH_TYPE_GOST3411_94];
+    const mechsHash2012 = [plugin.HASH_TYPE_GOST3411_12_256, plugin.HASH_TYPE_GOST3411_12_512];
 
-    var mechGostCipher = [plugin.CIPHER_ALGORITHM_GOST28147];
+    const mechGostCipher = [plugin.CIPHER_ALGORITHM_GOST28147];
 
-    var ecp3_0Mechanisms = {
-            "sign": {
-                "hardware": [].concat(mechsSignGost2001).concat(mechsSignGost2012).concat(mechsSignRsa).concat(mechsSignRsa4096)
-            },
+    const ecp3_0Mechanisms = {
+        sign: { hardware: [].concat(mechsSignGost2001).concat(mechsSignGost2012).concat(mechsSignRsa).concat(mechsSignRsa4096) },
 
-            "hash": {
-                "hardware": [].concat(mechsHash94).concat(mechsHash2012)
-            }
+        hash: { hardware: [].concat(mechsHash94).concat(mechsHash2012) },
 
-        };
+    };
 
-    var ecp2_0Mechanisms = {
-            "sign": {
-                "hardware": [].concat(mechsSignGost2001).concat(mechsSignGost2012).concat(mechsSignRsa)
-            },
+    const ecp2_0Mechanisms = {
+        sign: { hardware: [].concat(mechsSignGost2001).concat(mechsSignGost2012).concat(mechsSignRsa) },
 
-            "hash": {
-                "hardware": [].concat(mechsHash94).concat(mechsHash2012)
-            }
+        hash: { hardware: [].concat(mechsHash94).concat(mechsHash2012) },
 
-        };
+    };
 
-    var ecpMechanisms = {
-            "sign": {
-                "hardware": [].concat(mechsSignGost2001).concat(mechsSignRsa)
-            },
+    const ecpMechanisms = {
+        sign: { hardware: [].concat(mechsSignGost2001).concat(mechsSignRsa) },
 
-            "hash": {
-                "hardware": [].concat(mechsHash94)
-            },
+        hash: { hardware: [].concat(mechsHash94) },
 
-            "cipher": {
-                "hardware": [].concat(mechGostCipher)
-            }
-        };
+        cipher: { hardware: [].concat(mechGostCipher) },
+    };
 
-
-    var RutokenEcp3_0 = function() {
+    const RutokenEcp3_0 = function () {
         this.mechanisms = ecp3_0Mechanisms;
 
         this.features = {
-            "journal": true,
-            "customPin": true,
-            "externalAuth": false
+            journal: true,
+            customPin: true,
+            externalAuth: false,
         };
 
-        this.name = "Рутокен ЭЦП 3.0";
+        this.name = 'Рутокен ЭЦП 3.0';
         this.type = rutokenDeviceType.RutokenEcp3_0;
         this.isSupported = true;
-    }
+    };
     RutokenEcp3_0.prototype = new RutokenModel();
     knownDevices.push(new RutokenEcp3_0());
 
-    var RutokenEcp2_0 = function() {
+    const RutokenEcp2_0 = function () {
         this.mechanisms = ecp2_0Mechanisms;
 
-        this.features = {
-            "journal": true
-        };
+        this.features = { journal: true };
 
         this.speed = 3;
 
         this.type = rutokenDeviceType.RutokenEcp2_0;
-        this.name = "Рутокен ЭЦП 2.0";
+        this.name = 'Рутокен ЭЦП 2.0';
         this.isSupported = true;
-    }
+    };
 
     RutokenEcp2_0.prototype = new RutokenModel();
     knownDevices.push(new RutokenEcp2_0());
 
-    var RutokenEcpFlash2_0 = function() {
+    const RutokenEcpFlash2_0 = function () {
         this.mechanisms = ecp2_0Mechanisms;
 
         this.features = {
-            "journal": true,
-            "flashDrive": true
+            journal: true,
+            flashDrive: true,
         };
 
         this.type = rutokenDeviceType.RutokenEcpFlash2_0;
-        this.name = "Рутокен ЭЦП 2.0 Flash";
+        this.name = 'Рутокен ЭЦП 2.0 Flash';
         this.isSupported = true;
-    }
+    };
     RutokenEcpFlash2_0.prototype = new RutokenModel();
     knownDevices.push(new RutokenEcpFlash2_0());
 
-    var RutokenEcpTouch2_0 = function() {
+    const RutokenEcpTouch2_0 = function () {
         this.mechanisms = ecp2_0Mechanisms;
 
         this.features = {
-            "journal": true,
-            "confirmation": true,
-            "visualization": false
+            journal: true,
+            confirmation: true,
+            visualization: false,
         };
 
-        this.name = "Рутокен ЭЦП 2.0";
+        this.name = 'Рутокен ЭЦП 2.0';
         this.type = rutokenDeviceType.RutokenEcpTouch2_0;
         this.isSupported = true;
-    }
+    };
     RutokenEcpTouch2_0.prototype = new RutokenModel();
     knownDevices.push(new RutokenEcpTouch2_0());
 
-    var RutokenEcpFlashTouch2_0 = function() {
+    const RutokenEcpFlashTouch2_0 = function () {
         this.mechanisms = ecp2_0Mechanisms;
 
         this.features = {
-            "journal": true,
-            "confirmation": true,
-            "flashDrive": true,
-            "visualization": false
+            journal: true,
+            confirmation: true,
+            flashDrive: true,
+            visualization: false,
         };
 
-        this.name = "Рутокен ЭЦП 2.0 Flash";
+        this.name = 'Рутокен ЭЦП 2.0 Flash';
         this.type = rutokenDeviceType.RutokenEcpFlashTouch2_0;
         this.isSupported = true;
-    }
+    };
     RutokenEcpFlashTouch2_0.prototype = new RutokenModel();
     knownDevices.push(new RutokenEcpFlashTouch2_0());
 
-    var RutokenEcpPki2_0 = function() {
+    const RutokenEcpPki2_0 = function () {
         this.mechanisms = ecp2_0Mechanisms;
 
-        this.features = {
-            "journal": true
-        };
+        this.features = { journal: true };
 
         this.speed = 1;
         this.type = rutokenDeviceType.RutokenEcpPki2_0;
-        this.name = "Рутокен ЭЦП 2.0";
+        this.name = 'Рутокен ЭЦП 2.0';
         this.isSupported = true;
-    }
+    };
     RutokenEcpPki2_0.prototype = new RutokenModel();
     knownDevices.push(new RutokenEcpPki2_0());
 
-    var RutokenEcp2151 = function() {
+    const RutokenEcp2151 = function () {
         this.mechanisms = ecp2_0Mechanisms;
 
         this.features = {
-            "journal": true,
-            "bio": 1
+            journal: true,
+            bio: 1,
         };
 
-        this.name = "Рутокен 2151";
+        this.name = 'Рутокен 2151';
         this.isSupported = false;
-    }
+    };
     RutokenEcp2151.prototype = new RutokenModel();
     knownDevices.push(new RutokenEcp2151());
 
-    var RutokenEcp2_0Bluetooth = function() {
+    const RutokenEcp2_0Bluetooth = function () {
         this.mechanisms = ecp2_0Mechanisms;
 
-        this.features = {
-            "sm": true
-        };
+        this.features = { sm: true };
 
         this.type = rutokenDeviceType.RutokenEcp2_0Bluetooth;
-        this.name = "Рутокен Bluethooth";
+        this.name = 'Рутокен Bluethooth';
         this.isSupported = false;
-    }
+    };
     RutokenEcp2_0Bluetooth.prototype = new RutokenModel();
     knownDevices.push(new RutokenEcp2_0Bluetooth());
 
-    var RutokenPinpad2_0 = function() {
+    const RutokenPinpad2_0 = function () {
         this.mechanisms = ecp2_0Mechanisms;
 
         this.features = {
-            "journal": true,
-            "pin2": true,
-            "confirmation": true,
-            "visualization": true
+            journal: true,
+            pin2: true,
+            confirmation: true,
+            visualization: true,
         };
 
         this.type = rutokenDeviceType.RutokenPinpad2_0;
-        this.name = "Рутокен PINPad";
+        this.name = 'Рутокен PINPad';
         this.isSupported = false;
-    }
+    };
     RutokenPinpad2_0.prototype = new RutokenModel();
     knownDevices.push(new RutokenPinpad2_0());
 
-    var RutokenEcp = function() {
+    const RutokenEcp = function () {
         this.mechanisms = ecpMechanisms;
 
         this.speed = 3;
 
         this.type = rutokenDeviceType.RutokenEcp;
-        this.name = "Рутокен ЭЦП";
+        this.name = 'Рутокен ЭЦП';
         this.isSupported = false;
-    }
+    };
     RutokenEcp.prototype = new RutokenModel();
     knownDevices.push(new RutokenEcp());
 
-    var RutokenEcpBluetooth = function() {
+    const RutokenEcpBluetooth = function () {
         this.mechanisms = ecpMechanisms;
 
-        this.features = {
-            "sm": true
-        };
-
+        this.features = { sm: true };
 
         this.type = rutokenDeviceType.RutokenEcpBluetooth;
-        this.name = "Рутокен Bluethooth";
+        this.name = 'Рутокен Bluethooth';
         this.isSupported = false;
-    }
+    };
     RutokenEcpBluetooth.prototype = new RutokenModel();
     knownDevices.push(new RutokenEcpBluetooth());
 
-    var RutokenEcpPki = function() {
+    const RutokenEcpPki = function () {
         this.mechanisms = ecpMechanisms;
 
         this.speed = 1;
 
         this.type = rutokenDeviceType.RutokenEcpPki;
-        this.name = "Рутокен PKI";
+        this.name = 'Рутокен PKI';
         this.isSupported = false;
-    }
+    };
     RutokenEcpPki.prototype = new RutokenModel();
     knownDevices.push(new RutokenEcpPki());
 
-    var RutokenEcpFlash = function() {
+    const RutokenEcpFlash = function () {
         this.mechanisms = ecpMechanisms;
 
-        this.features = {
-            "flashDrive": true
-        };
+        this.features = { flashDrive: true };
 
         this.type = rutokenDeviceType.RutokenEcpFlash;
-        this.name = "Рутокен ЭЦП Flash";
+        this.name = 'Рутокен ЭЦП Flash';
         this.isSupported = false;
-    }
+    };
     RutokenEcpFlash.prototype = new RutokenModel();
     knownDevices.push(new RutokenEcpFlash());
 
-    var RutokenLite = function() {
+    const RutokenLite = function () {
         this.mechanisms = {
-                "sign": {
-                    "hardware": []
-                },
+            sign: { hardware: [] },
 
-                "hash": {
-                    "hardware": []
-                },
+            hash: { hardware: [] },
 
-                "cipher": {
-                    "hardware": []
-                }
+            cipher: { hardware: [] },
         };
 
         this.type = rutokenDeviceType.RutokenLite;
-        this.name = "Рутокен Lite"
-    }
+        this.name = 'Рутокен Lite';
+    };
     RutokenLite.prototype = new RutokenModel();
     knownDevices.push(new RutokenLite());
 
@@ -305,17 +275,19 @@ function knownDeviceModels(plugin) {
 }
 
 export function detectRutokenDevice(device, plugin) {
-    var knownModels = knownDeviceModels(plugin);
+    const knownModels = knownDeviceModels(plugin);
 
-    for (var i in knownModels)
-        if (knownModels[i].has(device.mechanisms, device.features, device.speed))
+    for (const i in knownModels) {
+        if (knownModels[i].has(device.mechanisms, device.features, device.speed)) {
             return {
                 modelName: knownModels[i].name,
-                deviceType: knownModels[i].type, 
-                isSupported: knownModels[i].isSupported
+                deviceType: knownModels[i].type,
+                isSupported: knownModels[i].isSupported,
             };
+        }
+    }
 
-    return {modelName: "Неизвестная модель", isSupported: false};
+    return { modelName: 'Неизвестная модель', isSupported: false };
 }
 
 export const rutokenDeviceType = {

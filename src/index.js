@@ -3,7 +3,6 @@ import BrowserCompatibility from './browserCompatibility';
 import bindMethods from './bindMethods';
 import bindAlgorithms from './bindAlgorithms';
 
-
 import { NoInstalledPluginError } from './supportError';
 
 class Plugin {
@@ -44,7 +43,7 @@ class Plugin {
     setLocale(locale) {
         this.locale = locale;
     }
-    
+
     getPlatformType() {
         const browserCompatibility = this.getBrowserCompatibility();
 
@@ -57,8 +56,8 @@ class Plugin {
         // detect ios safari with userAgent as desctop setting
         // https://stackoverflow.com/a/58064481/9811165
         if (window.navigator.maxTouchPoints > 0 && browserCompatibility.os.name === 'macOS') {
-            //max mobile Ios width (iPhone 12 Pro) 1170px
-            browserCompatibility.platform.type = window.screen.width <= 1170 ? "mobile" : "tablet";
+            // max mobile Ios width (iPhone 12 Pro) 1170px
+            browserCompatibility.platform.type = window.screen.width <= 1170 ? 'mobile' : 'tablet';
         }
 
         return browserCompatibility;

@@ -10,7 +10,6 @@ import {
 
 import supportedBrowsersConfig from './supportedBrowsersConfig';
 
-
 class BrowserCompatibility {
     constructor() {
         const detectedBrowser = Bowser.getParser(window.navigator.userAgent);
@@ -30,7 +29,7 @@ class BrowserCompatibility {
 
         this.detectedBrowser = detectedBrowser;
 
-        this.defaultOS = "Default";
+        this.defaultOS = 'Default';
         this.browser = detectedBrowser.getBrowser();
         this.os = detectedBrowser.getOS();
         this.platform = detectedBrowser.getPlatform();
@@ -41,7 +40,8 @@ class BrowserCompatibility {
 
         if (!os) throw new NoSupportPlatformError();
 
-        if (window.navigator.maxTouchPoints > 0 && this.os.name === 'macOS') {  //detect ios safari with userAgent as desctop setting
+        // detect ios safari with userAgent as desctop setting
+        if (window.navigator.maxTouchPoints > 0 && this.os.name === 'macOS') {
             throw new NoSupportPlatformError();
         }
 
@@ -90,11 +90,13 @@ class BrowserCompatibility {
         const current = splitVersions(currentVersion);
         const minimum = splitVersions(minVersion);
 
+        // eslint-disable-next-line
         for (let i = 0; i < Math.max(current.length, minimum.length); i++) {
-            const curr = current[i] || 0, min = minimum[i] || 0;
+            const curr = current[i] || 0;
+            const min = minimum[i] || 0;
             if (curr != min) {
                 return curr > min;
-            } 
+            }
         }
 
         return true;
@@ -112,14 +114,14 @@ class BrowserCompatibility {
                 const isValid = this.detectedBrowser.satisfies(brs);
 
                 if (isValid) return;
-                if(!this.browser.version && x.allowUnknownBrowserVersion) return;
-                if (index != versions.length - 1) continue;
+                if (!this.browser.version && x.allowUnknownBrowserVersion) return;
+                if (index === versions.length - 1) {
+                    const os = supportedBrowsersConfig[this.platform.type];
 
-                const os = supportedBrowsersConfig[this.platform.type];
+                    const browsers = os[this.os.name];
 
-                const browsers = os[this.os.name];
-
-                throw new NoSupportBrowserVersionError(this.browser, Object.keys(browsers));
+                    throw new NoSupportBrowserVersionError(this.browser, Object.keys(browsers));
+                }
             }
         }
 
