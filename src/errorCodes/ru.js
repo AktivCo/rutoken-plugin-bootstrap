@@ -93,6 +93,7 @@ const getErrorCodes = (errorCodes) => ({
     [errorCodes.X509_CRL_PATH_VALIDATION_ERROR]: 'Неправильный путь CRL',
     [errorCodes.CMS_CERTIFICATE_ALREADY_PRESENT]: 'Сертификат уже используется',
     [errorCodes.CANT_HARDWARE_VERIFY_CMS]: 'Проверка множественной подписи с вычислением хеша на устройстве не поддерживается',
+    [errorCodes.KEY_SPEC_VALUE_INCOMPATIBLE_WITH_GEN_PARAMS]: 'Параметры генерации не совместимы с выбранным назначением ключевой пары',
 });
 
 export default getErrorCodes;

@@ -93,6 +93,7 @@ const getErrorCodes = (errorCodes) => ({
     [errorCodes.X509_CRL_PATH_VALIDATION_ERROR]: 'Wrong CRL path',
     [errorCodes.CMS_CERTIFICATE_ALREADY_PRESENT]: 'Certificate already in use',
     [errorCodes.CANT_HARDWARE_VERIFY_CMS]: 'Multiple signature verification with hash computation is not supported on the device',
+    [errorCodes.KEY_SPEC_VALUE_INCOMPATIBLE_WITH_GEN_PARAMS]: 'Key spec value is incompatible with other gen params',
 });
 
 export default getErrorCodes;
