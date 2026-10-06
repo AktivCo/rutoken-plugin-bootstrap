@@ -19,12 +19,6 @@ function bindAlgorithms(plugin) {
         value: plugin.HASH_TYPE_GOST3411_12_512,
     };
 
-    hashAlgorithms[plugin.HASH_TYPE_MD5] = {
-        name: 'HASH_TYPE_MD5',
-        text: 'MD5',
-        value: plugin.HASH_TYPE_MD5,
-    };
-
     hashAlgorithms[plugin.HASH_TYPE_SHA1] = {
         name: 'HASH_TYPE_SHA1',
         text: 'SHA1',
@@ -74,7 +68,6 @@ function bindAlgorithms(plugin) {
         value: plugin.PUBLIC_KEY_ALGORITHM_RSA,
         signatureSize: 2048,
         hash: [
-            hashAlgorithms[plugin.HASH_TYPE_MD5],
             hashAlgorithms[plugin.HASH_TYPE_SHA1],
             hashAlgorithms[plugin.HASH_TYPE_SHA256],
             hashAlgorithms[plugin.HASH_TYPE_SHA512],
